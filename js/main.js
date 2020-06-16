@@ -71,7 +71,7 @@ var getPins = function (data) {
     var img = elem.children[0];
     elem.style = 'left: ' + (data[j].location.x - 25) + 'px; top: ' + (data[j].location.y - 70) + 'px;';
     img.src = data[j].author.avatar;
-    img.alt = data[j].offer.description;
+    img.alt = data[j].offer.title;
 
     fragment.append(elem);
   }
