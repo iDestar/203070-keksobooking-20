@@ -89,6 +89,7 @@ var getCard = function (data) {
   var cardElement = cardTemplate.cloneNode(true);
   var type = cardElement.querySelector('.popup__type').textContent;
   var cardFragment = document.createDocumentFragment();
+
   var getCardFeatures = function () {
     for (var i = 0; i < data.offer.features.length; i++) {
       if (data.offer.features[i] === 'wifi') {
@@ -133,7 +134,7 @@ var getCard = function (data) {
   }
   cardElement.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
   cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-  cardElement.querySelector('.popup__feature--dishwasher').textContent = getCardFeatures(data.offer.features);
+  cardElement.querySelector('.popup__feature').textContent = getCardFeatures(data.offer.features);
   cardElement.querySelector('.popup__description').textContent = data.offer.description;
   cardElement.querySelector('.popup__photo').src = generateSrcPhoto(data.offer.photos, '.popup__photo', cardElement, '.popup__photos');
   cardElement.querySelector('.popup__avatar').src = data.author.avatar;
