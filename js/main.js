@@ -109,8 +109,8 @@ var getCard = function (data) {
   };
 
   function generateSrcPhoto(arr, classElem, cardElem, classBlock) {
-    var cardTempElement = cardElem.querySelector(classElem);
-    var cardBlockElement = cardElem.querySelector(classBlock);
+    var cardTempElement = cardElement.querySelector(classElem);
+    var cardBlockElement = cardElement.querySelector(classBlock);
     cardTempElement.src = arr[0];
     arr.forEach(function (el) {
       var cardEl = cardTempElement.cloneNode(true);
