@@ -83,6 +83,7 @@ var getPins = function (data) {
 };
 
 var adMap = getPinsAd();
+
 // map.append(getPins(adMap));
 
 
