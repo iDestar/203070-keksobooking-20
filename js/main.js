@@ -170,7 +170,7 @@ map.classList.add('map--faded');
 
 var statusDisabled = function (elem) {
   for (var i = 0; i < elem.length; i++) {
-    elem.setAttribute('disabled', 'true');
+    elem[i].setAttribute('disabled', 'true');
   }
 };
 
