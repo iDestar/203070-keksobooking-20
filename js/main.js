@@ -89,7 +89,6 @@ map.append(getPins(adMap));
 var getCard = function (data) {
   var cardTemplate = document.querySelector('#card').content;
   var cardElement = cardTemplate.cloneNode(true);
-  var cardFragment = document.createDocumentFragment();
 
   var getCardFeatures = function () {
     for (var i = 0; i < data.offer.features.length; i++) {
@@ -145,6 +144,8 @@ var getCard = function (data) {
   cardElement.querySelector('.popup__description').textContent = data.offer.description;
   addCardPhotos(data, cardElement);
   cardElement.querySelector('.popup__avatar').src = data.author.avatar;
+
+
   return cardElement;
 
 };
@@ -152,7 +153,6 @@ var getCard = function (data) {
 
 var mapFilterContainer = document.querySelector('.map__filters-containe');
 
-map.insertBefore(getCard(adMap[0]), mapFilterContainer);
 
 var mapPins = document.querySelector('.map__pins');
 var mainPin = mapPins.querySelector('.map__pin--main');
@@ -261,4 +261,30 @@ adFormGuestNumber.addEventListener('change', function () {
     adFormRoomNumber.setCustomValidity('');
     adFormGuestNumber.setCustomValidity('');
   }
+});
+
+
+var mapPinsCard = document.querySelectorAll('.map__pin');
+
+
+var elc = function (element, data) {
+  element.addEventListener('click', function () {
+    map.insertBefore(getCard(data), mapFilterContainer);
+  });
+};
+
+var openPopupCard = function (pins, arr) {
+  for (var i = 0; i < mapPinsCard.length; i++) {
+    elc(pins[i + 1], arr[i]);
+  }
+};
+
+openPopupCard(mapPinsCard, adMap);
+
+var popupClose = document.querySelector('.popup__close');
+var poupCard = document.querySelector('.popup');
+
+
+popupClose.addEventListener('click', function () {
+  poupCard.remove();
 });
