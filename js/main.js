@@ -198,8 +198,19 @@ var pinCenterPositionX = Math.floor(mainPin.offsetLeft + MAIN_PIN_WIDTH / 2);
 var pinCenterPositionY = Math.floor(mainPin.offsetTop + MAIN_PIN_HEIGHT / 2);
 var adFormRoomNumber = adForm.querySelector('#room_number');
 var adFormGuestNumber = adForm.querySelector('#capacity');
+var timein = adForm.querySelector('#timein');
+var timeout = adForm.querySelector('#timeout');
 adForm.classList.add('ad-form--disabled');
 map.classList.add('map--faded');
+
+timein.addEventListener('change', function (evt) {
+  timeout.value = evt.target.value;
+});
+
+timeout.addEventListener('change', function (evt) {
+  timein.value = evt.target.value;
+});
+
 
 var statusDisabled = function (elem) {
   for (var i = 0; i < elem.length; i++) {
