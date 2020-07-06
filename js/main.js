@@ -86,9 +86,31 @@ var adMap = getPinsAd();
 map.append(getPins(adMap));
 
 
+var removePopup = function () {
+  var popupWindow = document.querySelector('.popup');
+
+  if (popupWindow) {
+    popupWindow.remove();
+  }
+};
+
+var onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+
+var closePopup = function () {
+  removePopup();
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 var getCard = function (data) {
   var cardTemplate = document.querySelector('#card').content;
   var cardElement = cardTemplate.cloneNode(true);
+  var popupClose = cardElement.querySelector('.popup__close');
 
   var getCardFeatures = function () {
     for (var i = 0; i < data.offer.features.length; i++) {
@@ -145,6 +167,15 @@ var getCard = function (data) {
   addCardPhotos(data, cardElement);
   cardElement.querySelector('.popup__avatar').src = data.author.avatar;
 
+  popupClose.addEventListener('click', function () {
+    closePopup();
+  });
+
+  popupClose.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      closePopup();
+    }
+  });
 
   return cardElement;
 
@@ -280,11 +311,3 @@ var openPopupCard = function (pins, arr) {
 };
 
 openPopupCard(mapPinsCard, adMap);
-
-var popupClose = document.querySelector('.popup__close');
-var poupCard = document.querySelector('.popup');
-
-
-popupClose.addEventListener('click', function () {
-  poupCard.remove();
-});
