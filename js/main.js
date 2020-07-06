@@ -85,10 +85,32 @@ var getPins = function (data) {
 var adMap = getPinsAd();
 map.append(getPins(adMap));
 
+
+var removePopup = function () {
+  var popupWindow = document.querySelector('.popup');
+
+  if (popupWindow) {
+    popupWindow.remove();
+  }
+};
+
+var onPopupEscPress = function (evt) {
+  if (evt.key === 'Escape') {
+    evt.preventDefault();
+    closePopup();
+  }
+};
+
+
+var closePopup = function () {
+  removePopup();
+  document.removeEventListener('keydown', onPopupEscPress);
+};
+
 var getCard = function (data) {
   var cardTemplate = document.querySelector('#card').content;
   var cardElement = cardTemplate.cloneNode(true);
-
+  var popupClose = cardElement.querySelector('.popup__close');
 
   var getCardFeatures = function () {
     for (var i = 0; i < data.offer.features.length; i++) {
@@ -144,6 +166,16 @@ var getCard = function (data) {
   cardElement.querySelector('.popup__description').textContent = data.offer.description;
   addCardPhotos(data, cardElement);
   cardElement.querySelector('.popup__avatar').src = data.author.avatar;
+
+  popupClose.addEventListener('click', function () {
+    closePopup();
+  });
+
+  popupClose.addEventListener('keydown', function (evt) {
+    if (evt.key === 'Enter') {
+      closePopup();
+    }
+  });
 
   return cardElement;
 
@@ -262,4 +294,20 @@ adFormGuestNumber.addEventListener('change', function () {
   }
 });
 
-map.insertBefore(getCard(adMap[0]), mapFilterContainer);
+
+var mapPinsCard = document.querySelectorAll('.map__pin');
+
+
+var elc = function (element, data) {
+  element.addEventListener('click', function () {
+    map.insertBefore(getCard(data), mapFilterContainer);
+  });
+};
+
+var openPopupCard = function (pins, arr) {
+  for (var i = 0; i < mapPinsCard.length; i++) {
+    elc(pins[i + 1], arr[i]);
+  }
+};
+
+openPopupCard(mapPinsCard, adMap);
