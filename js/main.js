@@ -296,3 +296,18 @@ adFormGuestNumber.addEventListener('change', function () {
 
 
 var mapPinsCard = document.querySelectorAll('.map__pin');
+
+
+var elc = function (element, data) {
+  element.addEventListener('click', function () {
+    map.insertBefore(getCard(data), mapFilterContainer);
+  });
+};
+
+var openPopupCard = function (pins, arr) {
+  for (var i = 0; i < mapPinsCard.length; i++) {
+    elc(pins[i + 1], arr[i]);
+  }
+};
+
+openPopupCard(mapPinsCard, adMap);
