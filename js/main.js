@@ -308,6 +308,37 @@ adFormGuestNumber.addEventListener('change', function () {
 
 var mapPinsCard = document.querySelectorAll('.map__pin');
 
+var type = adForm.querySelector('#type');
+var price = adForm.querySelector('#price');
+
+var changeMinPrice = function () {
+  switch (type.value) {
+    case 'flat':
+      price.placeholder = '1000';
+      price.min = '1000';
+      break;
+    case 'bungalo':
+      price.placeholder = '0';
+      price.min = '0';
+      break;
+    case 'house':
+      price.placeholder = '5000';
+      price.min = '5000';
+      break;
+    case 'palace':
+      price.placeholder = '10000';
+      price.min = '10000';
+      break;
+    default:
+      price.placeholder = '1000';
+      price.min = '1000';
+  }
+};
+
+type.addEventListener('change', function () {
+  changeMinPrice();
+});
+
 
 var elc = function (element, data) {
   element.addEventListener('click', function () {
