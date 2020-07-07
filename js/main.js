@@ -71,6 +71,7 @@ var getPins = function (data) {
 
   for (var j = 0; j < data.length; j++) {
     var elem = template.cloneNode(true);
+    elem.dataset.id = j;
     var img = elem.children[0];
     elem.style = 'left: ' + (data[j].location.x - 25) + 'px; top: ' + (data[j].location.y - 70) + 'px;';
     img.src = data[j].author.avatar;
@@ -85,6 +86,7 @@ var getPins = function (data) {
 var adMap = getPinsAd();
 map.append(getPins(adMap));
 
+var isOpen = false;
 
 var removePopup = function () {
   var popupWindow = document.querySelector('.popup');
@@ -103,6 +105,7 @@ var onPopupEscPress = function (evt) {
 
 
 var closePopup = function () {
+  isOpen = false;
   removePopup();
   document.removeEventListener('keydown', onPopupEscPress);
 };
@@ -167,7 +170,9 @@ var getCard = function (data) {
   addCardPhotos(data, cardElement);
   cardElement.querySelector('.popup__avatar').src = data.author.avatar;
 
-  popupClose.addEventListener('click', function () {
+  popupClose.addEventListener('click', function (evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
     closePopup();
   });
 
@@ -337,4 +342,27 @@ type.addEventListener('change', function () {
   changeMinPrice();
 });
 
-map.insertBefore(getCard(adMap[1]), mapFilterContainer);
+
+var mapFaded = document.querySelector('.map--faded');
+
+var findPin = function (node) {
+  if (node.tagName === 'BUTTON' && node.dataset.id) {
+    return +(node.dataset.id);
+  }
+  return node.tagName !== 'BODY' && findPin(node.parentNode);
+
+};
+
+
+mapFaded.addEventListener('click', function (evt) {
+  var target = evt.target;
+  var find = findPin(target);
+  if (typeof find === 'number') {
+    if (isOpen) {
+      closePopup();
+    }
+    isOpen = true;
+    map.insertBefore(getCard(adMap[find]), mapFilterContainer);
+  }
+}
+);
