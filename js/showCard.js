@@ -22,7 +22,7 @@
         closePopup();
       }
       isOpen = true;
-      map.insertBefore(window.card.getCard((window.data.adMap[find])), mapFilterContainer);
+      map.insertBefore(window.card.getCard((window.pins.getDatabyIndex(find))), mapFilterContainer);
     }
   }
   );

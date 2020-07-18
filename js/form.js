@@ -5,6 +5,54 @@
   var timeout = adForm.querySelector('#timeout');
   var adFormRoomNumber = adForm.querySelector('#room_number');
   var adFormGuestNumber = adForm.querySelector('#capacity');
+  var map = document.querySelector('.map');
+  var adFormReset = document.querySelector('.ad-form__reset');
+
+  adFormReset.addEventListener('click', function () {
+    window.formReset();
+  });
+
+  var submitHandler = function (evt) {
+    window.upload(new FormData(adForm), function () {
+
+
+      var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
+      successMessage.addEventListener('click', function () {
+        successMessage.remove();
+      });
+      successMessage.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          evt.preventDefault();
+          successMessage.remove();
+        }
+      });
+
+      map.appendChild(successMessage);
+      window.formReset();
+    }, function () {
+      var errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
+      map.appendChild(errorMessage);
+      var errorButton = document.querySelector('.error__button');
+      errorButton.addEventListener('click', function () {
+        errorMessage.remove();
+      });
+      errorMessage.addEventListener('click', function () {
+        errorMessage.remove();
+      });
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          evt.preventDefault();
+          errorMessage.remove();
+        }
+      });
+
+    });
+    evt.preventDefault();
+  };
+
+
+  adForm.addEventListener('submit', submitHandler);
+
 
   var checkRoomnadGuest = function () {
     var roomNumber = adFormRoomNumber.value;
