@@ -49,8 +49,10 @@
     mainPinLocation.value = pinCenterPositionX + ', ' + newPinPositionY;
   };
 
+  window.flagForPin = true;
 
-  mainPin.addEventListener('mousedown', function (evt) {
+
+  mainPin.addEventListener('click', function (evt) {
     if (evt.which === 1) {
       adForm.classList.remove('ad-form--disabled');
       map.classList.remove('map--faded');
@@ -58,6 +60,10 @@
       window.statusActive(window.mapFilterSelect);
       window.statusActive(window.adFormSelect);
       window.setupAddress();
+      if (window.flagForPin === true) {
+        window.pins.subscrube(window.getPins);
+        window.flagForPin = false;
+      }
     }
   });
 
@@ -69,6 +75,7 @@
       window.statusActive(window.mapFilterSelect);
       window.statusActive(window.adFormSelect);
       window.setupAddress();
+      window.pins.subscrube(window.getPins);
     }
   });
 

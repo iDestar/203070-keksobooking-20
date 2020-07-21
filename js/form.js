@@ -17,7 +17,8 @@
 
 
       var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-      successMessage.addEventListener('click', function () {
+      successMessage.addEventListener('click', function (event1) {
+        event1.stopPropagation();
         successMessage.remove();
       });
       successMessage.addEventListener('keydown', function (event) {

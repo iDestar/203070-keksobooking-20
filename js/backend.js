@@ -2,7 +2,7 @@
 
 
 (function () {
-  var URL_POST = 'https://javascript.pages.academy/keksobookig';
+  var URL_POST = 'https://javascript.pages.academy/keksobooking';
   var URL_GET = 'https://javascript.pages.academy/keksobooking/data';
   var StatusCode = {
     OK: 200

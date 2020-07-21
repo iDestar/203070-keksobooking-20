@@ -3,7 +3,7 @@
 
   var map = document.querySelector('.map');
 
-  var getPins = function (data) {
+  window.getPins = function (data) {
     var template = document.querySelector('#pin').content.querySelector('button');
     var fragment = document.createDocumentFragment();
 
@@ -20,7 +20,4 @@
 
     return map.append(fragment);
   };
-
-
-  window.pins.subscrube(getPins);
 })();

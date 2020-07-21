@@ -19,7 +19,7 @@
   };
 
 
-  var removePins = function () {
+  window.removePins = function () {
     var pins = document.querySelectorAll('.map__pin[type="button"]');
     pins.forEach(function (pin) {
       pin.remove();
@@ -34,6 +34,7 @@
     adForm.classList.add('ad-form--disabled');
     map.classList.add('map--faded');
     closeCard();
-    removePins();
+    window.removePins();
+    window.flagForPin = true;
   };
 })();

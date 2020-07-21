@@ -6,23 +6,15 @@
     var cardElement = cardTemplate.cloneNode(true);
     var popupClose = cardElement.querySelector('.popup__close');
 
-    var getCardFeatures = function () {
-      for (var i = 0; i < data.offer.features.length; i++) {
-        if (data.offer.features[i] === 'wifi') {
-          cardElement.querySelector('.popup__feature--wifi').textContent = 'wifi';
-        } if (data.offer.features[i] === 'dishwasher') {
-          cardElement.querySelector('.popup__feature--dishwasher').textContent = 'dishwasher';
-        } if (data.offer.features[i] === 'parking') {
-          cardElement.querySelector('.popup__feature--parking').textContent = 'parking';
-        } if (data.offer.features[i] === 'washer') {
-          cardElement.querySelector('.popup__feature--washer').textContent = 'washer';
-        } if (data.offer.features[i] === 'elevator') {
-          cardElement.querySelector('.popup__feature--elevator').textContent = 'elevator';
-        } if (data.offer.features[i] === 'conditioner') {
-          cardElement.querySelector('.popup__feature--conditioner').textContent = 'conditioner';
-        }
-      }
-    };
+    var cardFeatures = cardElement.querySelector('.popup__features');
+    cardFeatures.textContent = '';
+
+    for (var j = 0; j < data.offer.features.length; j++) {
+      var newItem = document.createElement('li');
+      newItem.classList.add('popup__feature');
+      newItem.classList.add('popup__feature--' + data.offer.features[j]);
+      cardFeatures.appendChild(newItem);
+    }
 
     var addCardPhotos = function (datas, template) {
       var photos = template.querySelector('.popup__photos');
@@ -56,7 +48,6 @@
     cardElement.querySelector('.popup__type').textContent = getOfferType(data.offer.type);
     cardElement.querySelector('.popup__text--capacity').textContent = data.offer.rooms + ' комнаты для ' + data.offer.guests + ' гостей';
     cardElement.querySelector('.popup__text--time').textContent = 'Заезд после ' + data.offer.checkin + ', выезд до ' + data.offer.checkout;
-    cardElement.querySelector('.popup__feature').textContent = getCardFeatures(data.offer.features);
     cardElement.querySelector('.popup__description').textContent = data.offer.description;
     addCardPhotos(data, cardElement);
     cardElement.querySelector('.popup__avatar').src = data.author.avatar;
@@ -69,6 +60,7 @@
 
     popupClose.addEventListener('keydown', function (evt) {
       if (evt.key === 'Enter') {
+        evt.stopPropagation();
         window.showCard.closePopup();
       }
     });
