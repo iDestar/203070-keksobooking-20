@@ -2,7 +2,7 @@
 (function () {
   var map = document.querySelector('.map');
   var mapFilterContainer = document.querySelector('.map__filters-container');
-  var mapFaded = document.querySelector('.map--faded');
+  var isActive;
   var isOpen = false;
 
   var findPin = function (node) {
@@ -14,42 +14,32 @@
   };
 
 
-  mapFaded.addEventListener('click', function (evt) {
+  map.addEventListener('click', function (evt) {
     var target = evt.target;
     var find = findPin(target);
+    var activePin = document.querySelector('.map__pin--active');
+    if (isActive) {
+      activePin.classList.remove('map__pin--active');
+      isActive = false;
+    }
+    if (typeof find === 'number' && !isActive) {
+      if (target.tagName === 'IMG') {
+        target.parentNode.classList.add('map__pin--active');
+        isActive = true;
+      } else {
+        target.classList.add('map__pin--active');
+        isActive = true;
+      }
+
+    }
     if (typeof find === 'number') {
       if (isOpen) {
-        closePopup();
+        window.closeCard();
       }
       isOpen = true;
-      map.insertBefore(window.card.getCard((window.pins.getDatabyIndex(find))), mapFilterContainer);
+      map.insertBefore(window.getCard((window.pins.getDatabyId(find))), mapFilterContainer);
     }
   }
   );
-
-  var removePopup = function () {
-    var popupWindow = document.querySelector('.popup');
-
-    if (popupWindow) {
-      popupWindow.remove();
-    }
-  };
-
-  var onPopupEscPress = function (evt) {
-    if (evt.key === 'Escape') {
-      evt.preventDefault();
-      closePopup();
-    }
-  };
-
-  var closePopup = function () {
-    isOpen = false;
-    removePopup();
-    document.removeEventListener('keydown', onPopupEscPress);
-  };
-
-  window.showCard = {
-    closePopup: closePopup
-  };
 
 })();

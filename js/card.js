@@ -1,18 +1,21 @@
 'use strict';
 (function () {
 
-  var getCard = function (data) {
+  var map = document.querySelector('.map');
+
+  window.getCard = function (data) {
     var cardTemplate = document.querySelector('#card').content;
     var cardElement = cardTemplate.cloneNode(true);
-    var popupClose = cardElement.querySelector('.popup__close');
+    var popupCloseButton = cardElement.querySelector('.popup__close');
+
 
     var cardFeatures = cardElement.querySelector('.popup__features');
     cardFeatures.textContent = '';
-
     for (var j = 0; j < data.offer.features.length; j++) {
       var newItem = document.createElement('li');
       newItem.classList.add('popup__feature');
       newItem.classList.add('popup__feature--' + data.offer.features[j]);
+      newItem.textContent = data.offer.features[j];
       cardFeatures.appendChild(newItem);
     }
 
@@ -52,25 +55,49 @@
     addCardPhotos(data, cardElement);
     cardElement.querySelector('.popup__avatar').src = data.author.avatar;
 
-    popupClose.addEventListener('click', function (evt) {
-      evt.preventDefault();
-      evt.stopPropagation();
-      window.showCard.closePopup();
-    });
+    if (!data.offer) {
+      cardElement.style.display = 'none';
+    }
+    if (!data.offer.features.length) {
+      cardElement.querySelector('.popup__features').style.display = 'none';
+    }
+    if (!data.offer.photos.length) {
+      cardElement.querySelector('.popup__photos').style.display = 'none';
+    }
 
-    popupClose.addEventListener('keydown', function (evt) {
-      if (evt.key === 'Enter') {
-        evt.stopPropagation();
-        window.showCard.closePopup();
-      }
-    });
+
+    popupCloseButton.addEventListener('click', cardCloseHandler);
 
     return cardElement;
 
   };
 
-  window.card = {
-    getCard: getCard
+  var removeActiveClassOfMapPin = function () {
+    var activeMapPin = document.querySelector('.map__pin--active');
+    if (activeMapPin) {
+      activeMapPin.classList.remove('map__pin--active');
+    }
   };
+
+  var cardCloseHandler = function (evt) {
+    var card = document.querySelector('.map__card');
+    if (evt.type === 'click' || evt.key === 'Escape') {
+      evt.stopPropagation();
+      card.removeEventListener('click', cardCloseHandler);
+      card.querySelector('.popup__close').removeEventListener('click', cardCloseHandler);
+      window.closeCard();
+      removeActiveClassOfMapPin();
+    }
+  };
+
+  window.closeCard = function () {
+    var card = document.querySelector('.map__card');
+    if (card) {
+      card.remove();
+    }
+  };
+
+  map.addEventListener('keydown', cardCloseHandler);
+
 
 })();

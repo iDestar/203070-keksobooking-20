@@ -6,47 +6,56 @@
   var adFormRoomNumber = adForm.querySelector('#room_number');
   var adFormGuestNumber = adForm.querySelector('#capacity');
   var map = document.querySelector('.map');
-  var adFormReset = document.querySelector('.ad-form__reset');
 
-  adFormReset.addEventListener('click', function () {
-    window.formReset();
-  });
+  var closeSuccessCard = function () {
+    var success = document.querySelector('.success');
+    if (success) {
+      success.remove();
+    }
+  };
 
+  var closeErrorCard = function () {
+    var error = document.querySelector('.error');
+    if (error) {
+      error.remove();
+    }
+  };
+
+  var successMessageHandler = function (evt) {
+    var success = document.querySelector('.success');
+    if (evt.type === 'click' || evt.key === 'Escape') {
+      evt.preventDefault();
+      evt.stopPropagation();
+      success.removeEventListener('click', successMessageHandler);
+      window.formReset();
+      closeSuccessCard();
+    }
+  };
+
+  var errorMessageHandler = function (evnt) {
+    var error = document.querySelector('.error');
+    if (evnt.type === 'click' || evnt.key === 'Escape') {
+      evnt.preventDefault();
+      evnt.stopPropagation();
+      error.removeEventListener('click', errorMessageHandler);
+      error.querySelector('.error__button').removeEventListener('click', errorMessageHandler);
+      closeErrorCard();
+    }
+  };
   var submitHandler = function (evt) {
     window.upload(new FormData(adForm), function () {
-
-
       var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
-      successMessage.addEventListener('click', function (event1) {
-        event1.stopPropagation();
-        successMessage.remove();
-      });
-      successMessage.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          evt.preventDefault();
-          successMessage.remove();
-        }
-      });
-
       map.appendChild(successMessage);
-      window.formReset();
+      successMessage.addEventListener('click', successMessageHandler);
+      document.addEventListener('keydown', successMessageHandler);
+
     }, function () {
       var errorMessage = document.querySelector('#error').content.querySelector('.error').cloneNode(true);
       map.appendChild(errorMessage);
       var errorButton = document.querySelector('.error__button');
-      errorButton.addEventListener('click', function () {
-        errorMessage.remove();
-      });
-      errorMessage.addEventListener('click', function () {
-        errorMessage.remove();
-      });
-      document.addEventListener('keydown', function (event) {
-        if (event.key === 'Escape') {
-          evt.preventDefault();
-          errorMessage.remove();
-        }
-      });
-
+      errorButton.addEventListener('click', errorMessageHandler);
+      errorMessage.addEventListener('click', errorMessageHandler);
+      document.addEventListener('keydown', errorMessageHandler);
     });
     evt.preventDefault();
   };

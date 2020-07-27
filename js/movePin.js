@@ -8,8 +8,14 @@
 
   map.addEventListener('mousemove', function (n) {
     if (pinMove) {
-      mapButton.style.left = (n.pageX - map.offsetLeft - (MAIN_PIN_WIDTH / 2)) + 'px';
-      mapButton.style.top = (n.pageY - map.offsetTop - (MAIN_PIN_WIDTH / 2)) + 'px';
+      var x = (n.pageX - map.offsetLeft - (MAIN_PIN_WIDTH / 2));
+      var y = (n.pageY - map.offsetTop - (MAIN_PIN_WIDTH / 2));
+      if (y > 130 && y < 630) {
+        mapButton.style.top = y + 'px';
+      }
+      if (x > -10 && x < 1150) {
+        mapButton.style.left = x + 'px';
+      }
     }
   });
 
