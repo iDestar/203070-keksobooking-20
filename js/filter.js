@@ -25,7 +25,7 @@
     var type = evt.target.value;
     var newtype;
     window.fllter.houseType = type;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
 
   });
@@ -36,7 +36,7 @@
     var type = evt.target.value;
     var newtype;
     window.fllter.priceType = type;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -48,7 +48,7 @@
     if (typeof type === 'string') {
       type = +(type);
       window.fllter.roomType = type;
-      newtype = window.pins.getDatabyFilters(type);
+      newtype = window.pins.getDatabyFilters(type).slice(0, 5);
       window.getPins(newtype);
     }
 
@@ -64,7 +64,7 @@
     } else {
       window.fllter.guestType = type;
     }
-    var newtype = window.pins.getDatabyFilters(type);
+    var newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
 
   });
@@ -74,7 +74,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -83,7 +83,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -92,7 +92,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -101,7 +101,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -110,7 +110,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 
@@ -119,7 +119,7 @@
     window.closeCard();
     var type = evt.target.value;
     var newtype;
-    newtype = window.pins.getDatabyFilters(type);
+    newtype = window.pins.getDatabyFilters(type).slice(0, 5);
     window.getPins(newtype);
   });
 

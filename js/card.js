@@ -72,12 +72,6 @@
 
   };
 
-  var removeActiveClassOfMapPin = function () {
-    var activeMapPin = document.querySelector('.map__pin--active');
-    if (activeMapPin) {
-      activeMapPin.classList.remove('map__pin--active');
-    }
-  };
 
   var cardCloseHandler = function (evt) {
     var card = document.querySelector('.map__card');
@@ -86,7 +80,7 @@
       card.removeEventListener('click', cardCloseHandler);
       card.querySelector('.popup__close').removeEventListener('click', cardCloseHandler);
       window.closeCard();
-      removeActiveClassOfMapPin();
+      window.removeActiveClassOfMapPin();
     }
   };
 

@@ -13,6 +13,14 @@
 
   };
 
+  window.removeActiveClassOfMapPin = function () {
+    var activeMapPin = document.querySelector('.map__pin--active');
+    if (activeMapPin) {
+      activeMapPin.classList.remove('map__pin--active');
+      isActive = false;
+    }
+  };
+
 
   map.addEventListener('click', function (evt) {
     var target = evt.target;

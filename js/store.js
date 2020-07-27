@@ -24,7 +24,7 @@
       subscrube: function (cb) {
         if (cb instanceof Function) {
           subscrubers.push(cb);
-          cb(data);
+          cb(data.slice(0, 5));
         }
       },
       addPins: function (response) {
@@ -39,10 +39,6 @@
             subscrubers[i](data);
           }
         }
-      },
-      getData: function (arr) {
-        arr = arr.concat(data);
-        return arr;
       },
       getDatabyId: function (id) {
         return data.find(function (i) {
