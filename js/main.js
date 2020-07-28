@@ -30,6 +30,7 @@
       activePin.classList.remove('map__pin--active');
       isActive = false;
     }
+
     if (typeof find === 'number' && !isActive) {
       if (target.tagName === 'IMG') {
         target.parentNode.classList.add('map__pin--active');
@@ -39,15 +40,7 @@
         isActive = true;
       }
 
-    }
-    if (typeof find === 'number') {
-      if (isOpen) {
-        window.closeCard();
-      }
-      isOpen = true;
-      map.insertBefore(window.getCard((window.pins.getDatabyId(find))), mapFilterContainer);
-    }
-  }
-  );
+  });
 
-})();
+  return cardElement;
+
