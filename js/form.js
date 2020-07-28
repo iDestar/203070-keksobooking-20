@@ -147,6 +147,8 @@
     }
   };
 
+  changeMinPrice();
+
   type.addEventListener('change', function () {
     changeMinPrice();
   });

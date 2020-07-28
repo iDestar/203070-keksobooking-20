@@ -18,10 +18,14 @@
     guestType: 'any',
   };
 
-
-  houseType.addEventListener('change', function (evt) {
+  var closeCardRemovePin = function () {
     window.removePins();
     window.closeCard();
+  };
+
+
+  houseType.addEventListener('change', function (evt) {
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     window.fllter.houseType = type;
@@ -31,8 +35,7 @@
   });
 
   priceType.addEventListener('change', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     window.fllter.priceType = type;
@@ -41,8 +44,7 @@
   });
 
   roomType.addEventListener('change', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     if (typeof type === 'string') {
@@ -56,8 +58,7 @@
   });
 
   guestType.addEventListener('change', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     if (type !== 'any') {
       window.fllter.guestType = +(type);
@@ -70,8 +71,7 @@
   });
 
   wifi.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
@@ -79,8 +79,7 @@
   });
 
   dishwasher.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
@@ -88,8 +87,7 @@
   });
 
   parking.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
@@ -97,8 +95,7 @@
   });
 
   washer.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
@@ -106,8 +103,7 @@
   });
 
   elevator.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
@@ -115,8 +111,7 @@
   });
 
   conditioner.addEventListener('input', function (evt) {
-    window.removePins();
-    window.closeCard();
+    closeCardRemovePin();
     var type = evt.target.value;
     var newtype;
     newtype = window.pins.getDatabyFilters(type).slice(0, 5);
