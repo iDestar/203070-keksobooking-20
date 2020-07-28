@@ -62,7 +62,9 @@
       cardElement.querySelector('.popup__features').style.display = 'none';
     }
     if (!data.offer.photos.length) {
+
       cardElement.querySelector('.popup__photos').style.display = 'none';
+      cardElement.querySelector('.popup__photos').parentNode.removeChild(cardElement.querySelector('.popup__photos'));
     }
 
 

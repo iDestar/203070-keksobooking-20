@@ -5,9 +5,12 @@
   var pinMove = false;
   var MAIN_PIN_WIDTH = 62;
   var MAIN_PIN_HEIGHT = 84;
+  var form = document.querySelector('.ad-form');
+  var address = form.querySelector('#address');
 
   map.addEventListener('mousemove', function (n) {
     if (pinMove) {
+      address.value = (mapButton.offsetTop + MAIN_PIN_HEIGHT) + ', ' + (mapButton.offsetLeft + (MAIN_PIN_WIDTH / 2));
       var x = (n.pageX - map.offsetLeft - (MAIN_PIN_WIDTH / 2));
       var y = (n.pageY - map.offsetTop - (MAIN_PIN_WIDTH / 2));
       if (y > 130 && y < 630) {
@@ -25,9 +28,8 @@
 
   mapButton.addEventListener('mouseup', function () {
     pinMove = false;
-    var form = document.querySelector('.ad-form');
-    var address = form.querySelector('#address');
     address.value = (mapButton.offsetTop + MAIN_PIN_HEIGHT) + ', ' + (mapButton.offsetLeft + (MAIN_PIN_WIDTH / 2));
   });
+
 
 })();

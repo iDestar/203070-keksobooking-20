@@ -27,6 +27,7 @@
       evt.preventDefault();
       evt.stopPropagation();
       success.removeEventListener('click', successMessageHandler);
+      window.checkRoomnadGuest();
       window.formReset();
       closeSuccessCard();
     }
@@ -43,6 +44,15 @@
     }
   };
   var submitHandler = function (evt) {
+    evt.preventDefault();
+    evt.stopPropagation();
+    if (!window.checkRoomnadGuest()) {
+      adFormRoomNumber.setCustomValidity('Выберете корректно');
+      return;
+    } else {
+      adFormRoomNumber.setCustomValidity('');
+      adFormGuestNumber.setCustomValidity('');
+    }
     window.upload(new FormData(adForm), function () {
       var successMessage = document.querySelector('#success').content.querySelector('.success').cloneNode(true);
       map.appendChild(successMessage);
@@ -57,18 +67,17 @@
       errorMessage.addEventListener('click', errorMessageHandler);
       document.addEventListener('keydown', errorMessageHandler);
     });
-    evt.preventDefault();
+
   };
 
 
   adForm.addEventListener('submit', submitHandler);
 
 
-  var checkRoomnadGuest = function () {
+  window.checkRoomnadGuest = function () {
     var roomNumber = adFormRoomNumber.value;
     var guestNumber = adFormGuestNumber.value;
     var isValid;
-
     if (roomNumber === '1' && guestNumber !== '1') {
       isValid = false;
     } else if (roomNumber === '2' && (guestNumber === '3' || guestNumber === '0')) {
@@ -83,8 +92,10 @@
     return isValid;
   };
 
+  window.checkRoomnadGuest();
+
   adFormRoomNumber.addEventListener('change', function () {
-    if (!checkRoomnadGuest()) {
+    if (!window.checkRoomnadGuest()) {
       adFormRoomNumber.setCustomValidity('Выберете корректно');
     } else {
       adFormRoomNumber.setCustomValidity('');
@@ -93,7 +104,7 @@
   });
 
   adFormGuestNumber.addEventListener('change', function () {
-    if (!checkRoomnadGuest()) {
+    if (!window.checkRoomnadGuest()) {
       adFormGuestNumber.setCustomValidity('Выберете корректно');
     } else {
       adFormRoomNumber.setCustomValidity('');
