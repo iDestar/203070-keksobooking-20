@@ -8,7 +8,6 @@
       activeMapPin.classList.remove('map__pin--active');
 
     }
+
   };
-
-
 })();
